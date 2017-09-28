@@ -7,32 +7,57 @@
 		<title>YourApp | Dashboard</title>
       	<!-- fix browser inconsistencies -->
 	    <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css">
+	    <!-- google fonts: Lato -->
+	    <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900" rel="stylesheet">
 		<!-- custom styles -->
 		<link href="css/styles.css" rel="stylesheet" type="text/css">
 	</head>
 	<body>
 		<header role="banner">
-			<h1>YourApp&trade;</h1>
-			<nav>
-				<ul>
-					<li>
-						<a href="#">Alerts</a>
+			<div class="nav-bar">
+				<h1><strong>Your</strong>App&trade;</h1>
+				<ul class="nav__container">
+					<li id="alert">
+						<img class="nav__icon" alt="Alert" src="icons/icon-bell.svg">
 					</li>
 					<li>
-						<image src="./images/Randy-Portrait.jpg"></image>
-						<a href="http://randylayne.com">Randy Layne</a>
+						<img class="profile--image" src="./images/Randy-Portrait.jpg">
+					</li>
+					<li>
+						<h3>Randy Layne</h3>
 					</li>
 				</ul>
-			</nav>
+			</div>
 		</header>
+	
+		<nav role="navigation" class="nav-bar__verticle">
+			<button class="button--menu" id="nav__menu--primary">
+				<img class="nav__icon" src="icons/icon-menu.svg">
+			</button>
+			<ul class="nav__container hidden--small" id="nav__dropdown">
+				<li class="nav__item selected">
+					<img class="nav__icon" alt="Dashboard" src="icons/icon-dashboard.svg">
+				</li>
+				<li class="nav__item">
+					<img class="nav__icon" alt="Members" src="icons/icon-members.svg">
+				</li>
+				<li class="nav__item">
+					<img class="nav__icon" alt="Visits" src="icons/icon-visits.svg">
+				</li>
+				<li class="nav__item">
+					<img class="nav__icon" alt="Settings" src="icons/icon-settings.svg">
+				</li>
+			</ul>
+			<button class="button--arrow" id="nav__arrow--primary">
+				<img class="nav__icon" src="icons/icon-menu-arrow.svg">
+			</button>
+
+		</nav>
+
 		<main>
 			<canvas id="myChart" width="200" height="200"></canvas>
 		</main>
-		<aside>
-			<nav role="navigation">
-				
-			</nav>
-		</aside>
+
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.bundle.min.js" type="text/javascript"></script>
 		<script src="js/app.js" type="text/javascript"></script>
 	</body>
