@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	const navDropdown = document.querySelector("#nav__dropdown");
 	const navClose = document.querySelector("#nav__arrow--primary");
 	const navBar = navDropdown.parentElement;
+	const main = document.querySelector("main");
 	const hideClass = "hidden--small";
 	
 	let navOpen = false;
@@ -71,6 +72,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	function navShow() {
 		navDropdown.classList.remove(hideClass);
 		navClose.style.display = "block";	
+		
 	}
 	
 	// navigation functions for medium screens
@@ -81,21 +83,27 @@ document.addEventListener('DOMContentLoaded', function () {
 	}
 	
 	function closeNav() {
+		let width = "25px";
 		navDropdown.classList.add(hideClass);
 		navOpen = false;
-		navBar.style.width = "25px";
+		navBar.style.width = width;
+		main.style.marginLeft = width;
 	}
 	
 	function openNav() {
+		let width = "100px";
 		navOpen = true;
 		navDropdown.classList.remove(hideClass);	
-		navBar.style.width = "100px";
+		navBar.style.width = width;
+		main.style.marginLeft = width;
 	}
 	
 		// navigation functions for large screens
 	function navViewLarge() {
+		let width = "100px";
 		navClose.style.display = "none";	
-		navBar.style.width = "100px";
+		navBar.style.width = width;
+		main.style.marginLeft = width;
 		navDropdown.classList.remove(hideClass);	
 	}
 
@@ -109,15 +117,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
 	});
 	
-	navClose.addEventListener('click', function (e) {
-		e.preventDefault();
+	navClose.addEventListener('click', function () {
 		navArrow();
 	});
 
-	// if nav dropdown is open in smal screen, collapse it before resizing
+	// if nav dropdown is open in small or medium screen, collapse it before resizing
 	window.addEventListener('resize', function () {
 		const size = viewSize();
 		if (size === "small") {
+			main.style.marginLeft = "0";
 			navBar.style.width = "100%";
 			navCollapseSmall();
 		} else if (size === "medium") {
@@ -134,41 +142,120 @@ document.addEventListener('DOMContentLoaded', function () {
 	// ************************************************************
 
 
-	const ctx = document.getElementById("myChart").getContext('2d');
-	const myChart = new Chart(ctx, {
-		type: 'bar',
+	const ctx = document.getElementById("line__traffic--Weekly").getContext('2d');
+	const ctx2 = document.getElementById("bar__traffic").getContext('2d');
+	const ctx3 = document.getElementById("pie__mobile").getContext('2d');
+	
+	Chart.defaults.global.defaultFontColor = "#a4a4a4";
+	
+	const weeklyTrafficLine = new Chart(ctx, {
+		type: "line",
 		data: {
-			labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
 			datasets: [{
-				label: '# of Votes',
-				data: [12, 19, 3, 5, 2, 3],
-				backgroundColor: [
-					'rgba(255, 99, 132, 0.2)',
-					'rgba(54, 162, 235, 0.2)',
-					'rgba(255, 206, 86, 0.2)',
-					'rgba(75, 192, 192, 0.2)',
-					'rgba(153, 102, 255, 0.2)',
-					'rgba(255, 159, 64, 0.2)'
-				],
-				borderColor: [
-					'rgba(255,99,132,1)',
-					'rgba(54, 162, 235, 1)',
-					'rgba(255, 206, 86, 1)',
-					'rgba(75, 192, 192, 1)',
-					'rgba(153, 102, 255, 1)',
-					'rgba(255, 159, 64, 1)'
-				],
-				borderWidth: 1
-			}]
-		},
+				data: [500, 1000, 750, 1250, 1750, 1250, 1500, 1000, 1500, 2000, 1500, 2000],
+
+				backgroundColor: ['rgba(115, 119, 191, .2)'],
+				borderColor: ['#7477BF'],
+				borderWidth: 1,
+				pointRadius: 6,
+				pointBorderWidth: 2,
+				pointBackgroundColor: '#fff'
+			}],
+				labels: ['', '16-22', '23-29', '30-5', '6-12', '13-19', '20-26','27-3','4-10','11-17','18-24','25-31'],
+    	},
 		options: {
+			responsive: true,
+			legend: {
+            	display: false
+            },
 			scales: {
 				yAxes: [{
 					ticks: {
-						beginAtZero:true
+						min: 0,
+						max: 2500
+					}
+				}]
+			},
+			elements: {
+				line: {
+					tension: 0, // disables bezier curves
+				}
+			}
+		}
+	});
+
+	
+
+	
+	
+	const dailyTrafficBar = new Chart(ctx2, {
+		type: 'bar',
+		data: {
+			labels: ["S", "M", "T", "W", "T", "F", "S"],
+			datasets: [{
+				label: '# of Hits',
+				data: [50, 75, 150, 100, 200, 180, 65],
+				backgroundColor: '#7477BF',
+				borderWidth: 0,
+			}]
+		},
+		options: {
+			legend: {
+            	display: false
+            },		
+			scales: {
+				xAxes: [{
+					barPercentage: 0.6			
+				}],
+				yAxes: [{
+					ticks: {
+						min: 0,
+						max: 250
 					}
 				}]
 			}
 		}
 	});
+	
+	
+var mobileUsersPie = new Chart(ctx3, {
+    type: 'doughnut',
+    data: {
+		datasets: [{
+			data: [5120, 4029, 16501],
+			backgroundColor: ['#81c98f', "#74b1bf", '#7477BF'],
+			borderWidth: 0
+		}],
+		labels: ["Tablets", "Phones",  "Desktop"]
+	},
+	options: {
+		cutoutPercentage: 55,
+		legend: {
+		position: 'right',
+		labels: {
+			boxWidth: 20,
+			fontSize: 17
+			}
+		},
+		layout: {
+			padding: 20
+		},
+
+		rotation: (-0.65 * Math.PI)
+	}
 });
+	
+	
+});
+
+
+
+
+
+
+
+
+
+
+
+
