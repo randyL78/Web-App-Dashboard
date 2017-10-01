@@ -43,8 +43,10 @@ document.addEventListener('DOMContentLoaded', function () {
 			return "small";
 		} else if (size < 1024) {
 			return "medium";
-		} else {
+		} else if (size < 1500) {
 			return "large";
+		} else {
+			return "x-large";
 		}
 	}
 	
@@ -107,6 +109,14 @@ document.addEventListener('DOMContentLoaded', function () {
 		navDropdown.classList.remove(hideClass);	
 	}
 
+	// navigation functions for extra large screens
+	function navViewXLarge() { 
+		navViewLarge();
+//		main.style.marginLeft = "auto";
+	}
+
+	
+
 	// ************ event listeners
 	navButton.addEventListener('click', function () {
 		if (navDropdown.classList.contains(hideClass)) {
@@ -130,29 +140,105 @@ document.addEventListener('DOMContentLoaded', function () {
 			navCollapseSmall();
 		} else if (size === "medium") {
 			navViewMedium();
-		} else {
+		} else if (size === "large") {
 			navViewLarge();
+		} else {
+			navViewXLarge();			
 		}
 	});
-	// ************* main
 
 
 	// ************************************************************
 	//				Charts
 	// ************************************************************
 
-
+	// ************* variables
 	const ctx = document.getElementById("line__traffic--Weekly").getContext('2d');
 	const ctx2 = document.getElementById("bar__traffic").getContext('2d');
 	const ctx3 = document.getElementById("pie__mobile").getContext('2d');
 	
+	
+	// ************* global settings
 	Chart.defaults.global.defaultFontColor = "#a4a4a4";
+	
+	
+	
+	// ************* Chart specific functions
+	
+	// create a single random integer in between maxRange and minRange
+	function randomNum(minRange, maxRange) {
+		const random =   Math.floor(Math.random() * (maxRange - minRange + 1) + minRange);
+		return random;
+	}
+	
+	// create an array of random integers
+	function randomArray(iterations, minRange, maxRange) {
+		const random = [];
+		for (let i = 0; i < iterations; i++) {
+			random.push(randomNum(minRange, maxRange));
+		}
+		return random;
+	}
+	
+	// find the sum of an array of integers
+	function addArray(numbers) {
+		let sum = 0;
+		for (let number of numbers) {
+			sum += number;
+		}
+		return sum;
+	}
+	
+	// make a subset of iterations number of items 
+	function arraySubset(array, iterations, numberFromEnd = 0) {
+		const end = array.length - numberFromEnd;
+		const start = end - iterations;
+		const sub = array.slice(start, end);
+		return sub;
+	}
+	
+	// get weekly data out of yearly by grabbing 7 days at a time and adding them
+	function getWeekly(numberOfWeeks) {
+		const weekly = [];
+		
+		for (let i = 0; i < numberOfWeeks; i++) {
+			const days = arraySubset(yearData, 7, (i * 7));
+			weekly.unshift(addArray(days));
+		}
+		return weekly;
+	}
+	
+	// generate 1 days worth of hourly data
+	const hourData = randomArray(24, 0, 18);
+	
+	// generate 1 week of data (including hour data)
+	const oneWeekData = randomArray(6,50,250);
+	oneWeekData.push(addArray(hourData));
+	
+	
+	// generate 364 days worth of random data, will add random oneWeekData for last 7 days
+	const yearData = randomArray(358, 0, 375);
+	// add data from oneWeekData to end of yearData
+	for (let day of oneWeekData) {
+		yearData.push(day);
+	}
+		
+	const weeklyData = getWeekly(12);
+	
+	const mobileData = [
+					randomNum(2000, 6000),
+					randomNum(2000, 6000),
+					randomNum(4000, 25000) // ensure desktop number remains larger
+	];
+
+	
+	
 	
 	const weeklyTrafficLine = new Chart(ctx, {
 		type: "line",
 		data: {
 			datasets: [{
-				data: [500, 1000, 750, 1250, 1750, 1250, 1500, 1000, 1500, 2000, 1500, 2000],
+				data: weeklyData,
 
 				backgroundColor: ['rgba(115, 119, 191, .2)'],
 				borderColor: ['#7477BF'],
@@ -194,7 +280,7 @@ document.addEventListener('DOMContentLoaded', function () {
 			labels: ["S", "M", "T", "W", "T", "F", "S"],
 			datasets: [{
 				label: '# of Hits',
-				data: [50, 75, 150, 100, 200, 180, 65],
+				data: oneWeekData,
 				backgroundColor: '#7477BF',
 				borderWidth: 0,
 			}]
@@ -222,7 +308,7 @@ var mobileUsersPie = new Chart(ctx3, {
     type: 'doughnut',
     data: {
 		datasets: [{
-			data: [5120, 4029, 16501],
+			data: mobileData,
 			backgroundColor: ['#81c98f', "#74b1bf", '#7477BF'],
 			borderWidth: 0
 		}],
