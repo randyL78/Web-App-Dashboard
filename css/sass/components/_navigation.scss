@@ -1,0 +1,165 @@
+/* ========================================
+			Navigation
+=========================================== */
+
+/* nav elements */
+.nav-bar {
+	@extend %nav-bar;
+	z-index: (map-get($z-index, menu) + 1);
+	@include mq(medium) {
+		justify-content: space-between;
+		flex-direction: row;
+	}	
+	@include e(verticle) { 		// .nav-bar__verticle
+		@extend %nav-bar;	
+		background-color: $color-shadow;
+		z-index: map-get($z-index, menu);
+		@include mq(medium) {
+			position: fixed;
+			top: 0;
+			left: 0;
+			height: 100%;
+			width: 25px;
+			transition: width $trns--duration-fast;
+			flex-direction: row;
+		}
+		@include mq(large) {
+			width: 100px;
+		}	
+	}
+}
+
+.nav {
+	@include e(container) { 		// .nav__container (nav ul elements)
+		@include mq(medium) {
+			.nav-bar__verticle & {
+				padding-top: 100px;
+				flex-direction: column;
+				width: 100%;
+			}
+		}
+		/* nav helper classes */
+		& .selected {
+			border-left: 4px solid $color-highlight;
+			border-right: 4px solid $color-highlight;
+			opacity: 1;
+			@include mq(medium) {
+				border-right-color: transparent;		
+			}
+		}
+	}
+	@include e(item) { 		// .nav__item (nav li elements)
+		display: inline-block;
+		padding-top: 15px;
+		padding-bottom: 15px;
+		width: 95%;
+		border-radius: 10px;
+		align-items: center;
+		cursor: pointer;
+		color: #fff;
+		opacity: .6;
+		transition: background-color  $trns--duration-slow;	
+		&:hover, 
+		&:active {
+			background-color: $color-highlight;
+			opacity: 1;
+		}
+		& a {
+			padding-top: 1.5rem;
+			text-decoration: none;
+			color: #fff;
+		}
+
+	}
+	@include e(icon) {
+		height: 30px;
+		width: 30px;
+		opacity: inherit;
+	}
+}
+
+/* nav button elements */
+.button--menu,
+.button--arrow {
+	background-color: $color-shadow;
+	opacity: .75;
+	transition: opacity .3s;
+	cursor: pointer;
+	min-height: 45px;
+}
+
+.button--arrow {
+	display: none;
+}
+
+.button--menu:hover,
+.button--arrow:hover {
+	opacity: 1;
+}
+
+.button--menu:active {
+	background: $color-highlight;
+}
+
+.button--arrow:active {
+	background: $color-highlight;
+}
+
+.button--form:active {
+	background: $color-highlight;
+}
+
+
+.button--arrow img {
+	transform: rotate(180deg);
+}
+
+#alert {
+	position: absolute;
+	right: 0;
+	top: 10px;
+	padding-left:  20px;
+}
+
+#alert::after {
+	content: "";
+	display: inline-block;
+	width: 9px;
+	height: 9px;
+	border-radius: 7.5px;
+    background-color: #85ED50;
+	transform: translateY(-25px) translateX(-5px);
+}
+
+[class*="__container"] { 		
+		margin-top: 0;
+		margin-bottom: 0;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		transition: height $trns--duration-fast;
+		@include mq(medium) {
+			flex-direction: row;
+			justify-content: flex-start;
+		}
+	}
+
+[class*="icon"] {
+	cursor: pointer;
+}
+
+.hidden {
+	@include m(small) {
+		height: 0;
+		display: none;
+		@include mq(medium) {
+			height: inherit;
+		}
+		@include mq(large) {
+			display: flex;
+		}
+	}
+}
+
+

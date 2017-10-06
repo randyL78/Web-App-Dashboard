@@ -1,0 +1,44 @@
+//////////////////////////////////////////////////
+//		Butttons 		  						//
+//////////////////////////////////////////////////
+
+// color buttons when theme__colors class is included
+.theme__colors.btn {
+  @include ui-colors($ui-colors);
+}
+
+// select any class with beginning of btn--
+[class^="btn--"] {
+ 	@extend %button;
+	text-transform: uppercase;  // 	Capitalize first letter of each word
+	transition: box-shadow $trns--duration-fast, background-color $trns--duration-fast;
+	&:hover {
+//		box-shadow: 0 0 28px 0 rgba($black, .5) inset;
+	}
+	@include mq(medium) {
+		
+	}
+}
+
+[class^="pill"] {
+	& .selected {
+		background-color: $color-highlight;
+		color: $color-font-white;
+	}
+}
+
+
+[class*="--pill"] {
+	color: $color-font-light;
+	border-radius: $border--pill;
+	@include mq(medium) {
+		@include margin-left-right(em(15px));
+		@include pad-left-right(em(20px));
+	}
+	&:hover {
+		background-color: $color-highlight;
+		color: $color-font-white;
+	}
+	
+}
+

@@ -1,0 +1,28 @@
+/* ========================================
+			Main Title Area
+=========================================== */
+
+.title {
+	display: flex;
+	flex-direction: column-reverse;
+}
+
+.search {	
+	background: url(../icons/search.svg) no-repeat right;
+	background-color: $white;
+	@include margin-top-bottom(15px);
+	@include mq(medium) {
+		max-width: 375px;
+	}
+	&--bar {
+		@include mq(medium) {
+			text-align: right;
+			background-color: setColor(grey, base);
+			border-bottom-left-radius: 10px;
+		}
+	}
+	
+
+}
+
+

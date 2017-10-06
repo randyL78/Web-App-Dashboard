@@ -1,0 +1,20 @@
+/* ========================================
+			Header Section
+=========================================== */
+
+header {
+	width: 100%;
+	background-color: $color-primary;
+	color: $color-font-white;	
+	@include mq(medium) {
+		@include pad-left-right(25px);
+		z-index: (map-get($z-index, menu) + 1);
+		position: fixed;
+		top: 0;
+		box-shadow: 0 0 55px 0 setColor(primary, x-light) inset;
+	}
+}
+
+
+
+

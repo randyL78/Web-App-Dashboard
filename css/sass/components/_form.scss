@@ -1,0 +1,52 @@
+/* ========================================
+			Form Elements
+=========================================== */
+
+form {
+	@extend %nav-bar;
+	align-content: center;
+}
+
+.btn--form {
+	margin-top: 25px;
+	background-color: $color-primary;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	min-height: 50px;
+	color: #fff;
+	transition: background-color $trns--duration-fast;
+}
+
+.btn--form:hover {
+	background-color: setColor(primary, x-dark);
+}
+
+.cancel {
+	background-color: setColor(grey, light);
+}
+
+
+input,
+textarea,
+select {
+	border: $border--theme;
+	color: $color-font-light;
+	height: 2.5rem;
+	width: 100%;
+	border-radius: 5px;
+	padding-left: 10px;
+}
+
+textarea {
+	margin-top: 25px;
+	padding-top: 10px;
+	height: 10em;
+}
+
+input::placeholder,
+textarea::placeholder,
+select::placeholder {
+	color: $color-font-lighter;
+	font-style: italic;
+}
