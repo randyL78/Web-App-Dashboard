@@ -80,7 +80,7 @@
 // =============== Headlines ====================
 
 %hdln-prim {
-	color: color-font-white;
+	color: $color-font-white;
  	font-weight: $font-weight--light;
   	font-size: em(36px);
 	@include mq(medium) {
@@ -91,7 +91,7 @@
 }
 
 %hdln-sec {
-  	color: palette(grey, medium);
+  	color: setColor(grey, medium);
   	font-weight: $font-weight--light;
 	font-size: em(26px);
 	margin-bottom: 15px;

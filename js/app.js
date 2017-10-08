@@ -3,17 +3,18 @@
 document.addEventListener('DOMContentLoaded', function () {
 	"use strict";
 	// ************************************************************
-	//				Non Specific Function
+	//				Non Specific Functions
 	// ************************************************************	
 	
-	// create an li element
+	
+	// Creates an li element and populates the class attr and the inner text.
 	function createLI (className, text = "") {
 		const li = createElement("li", className, text);
 
 		return li;
 	}
 	
-	// create any type of html element
+	// Creates an html element and populates the class attr and the inner text.
 	function createElement (type, className, text = "") {
 		const el = document.createElement(type);
 		if (className !== "") {
@@ -23,44 +24,18 @@ document.addEventListener('DOMContentLoaded', function () {
 			el.textContent = text;
 		}
 		return el;
-	}
-	
-	// set the attributes of an element using an attributes object
-	function setAttributes(element, attributes) {
-		for (let attr in attributes) {
-			if (attr !== "") {
-				element.setAttribute(attr.toUpperCase(), attributes[attr].toLowerCase());
-			}
-		}
-		return element;
-	}
-	
-	// set the styles of an element using an styles object
-	function setStyles(element, styles) {
-		for (let style in styles) {
-			if (style !== "") {
-					element.style[style.toLowerCase()] = styles[style].toLowerCase();
-			}
-		}
-		return element;
-	}
-	
+	}	
+
 	// Get top, botom, left or right position of an element
 	function getPosition(element, position) {
 		return (element.getBoundingClientRect()[position]);
-	}
-	
-	// Get height or width of an element as a number
-	function getDimension(element, dimension) {
-		let elemHeight = window.getComputedStyle(element).getPropertyValue(dimension);
-		elemHeight = elemHeight.replace("px", "");
-		return(elemHeight);
 	}
 	
 	// ************************************************************
 	//				Navigation
 	// ************************************************************
 
+	
 	// ************ variables
 	const navButton = document.querySelector("#nav__menu--primary");
 	const navDropdown = document.querySelector("#nav__dropdown");
@@ -71,8 +46,8 @@ document.addEventListener('DOMContentLoaded', function () {
 	
 	let navOpen = false;
 	// ************ functions
-
-
+	
+	// Determines what size browser window user has in discrete values (ie "small")
 	function viewSize() {
 		const size = window.innerWidth;
 		if (size < 768) {
@@ -101,25 +76,26 @@ document.addEventListener('DOMContentLoaded', function () {
 		}
 	}
 	
-	// navigation functions for small screens
+	// Navigation functions for small screens
 	function navCollapseSmall() {
 		navDropdown.classList.add(hideClass);
 		navClose.style.display = "none";
 	}
 	
+	// Shows the navigation dropdown menu
 	function navShow() {
 		navDropdown.classList.remove(hideClass);
-		navClose.style.display = "block";	
-		
+		navClose.style.display = "block";		
 	}
 	
-	// navigation functions for medium screens
+	// Navigation functions for medium screens
 	function navViewMedium() {
 		navClose.style.display = "block";	
 		navBar.style.width = "25px";
 		closeNav();
 	}
 	
+	// Hide the navigation dropdown menu in medium screens
 	function closeNav() {
 		let width = "25px";
 		navDropdown.classList.add(hideClass);
@@ -128,6 +104,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		main.style.marginLeft = width;
 	}
 	
+	// Shows the navigation dropdown menu for medium screens
 	function openNav() {
 		let width = "100px";
 		navOpen = true;
@@ -136,7 +113,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		main.style.marginLeft = width;
 	}
 	
-		// navigation functions for large screens
+	// navigation function for large screens
 	function navViewLarge() {
 		let width = "100px";
 		navClose.style.display = "none";	
@@ -428,8 +405,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	});
 
 	
-
-	
+		
 	
 	const dailyTrafficBar = new Chart(ctx2, {
 		type: 'bar',
