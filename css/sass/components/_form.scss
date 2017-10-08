@@ -1,6 +1,6 @@
-/* ========================================
-			Form Elements
-=========================================== */
+// ========================================
+//			Form Elements
+// ========================================
 
 form {
 	@extend %nav-bar;
@@ -38,6 +38,13 @@ select {
 	padding-left: 10px;
 }
 
+input {
+	margin-top: 5px;
+}
+select {
+	margin-top: 15px;
+	margin-top: 25px;
+}
 textarea {
 	margin-top: 25px;
 	padding-top: 10px;

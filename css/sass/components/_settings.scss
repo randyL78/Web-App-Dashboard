@@ -1,0 +1,18 @@
+.settings {
+	@extend %container-flex-verticle;
+	@include e(item) {
+		@extend %container-flex-fixed;
+		justify-content: space-between;
+		align-content: center;
+		flex-wrap: wrap;
+		padding: em(15px);
+		margin-left: auto;
+		margin-bottom: em(18px);
+		width: 100%;
+		text-align: left;
+	}
+}
+
+
+
+

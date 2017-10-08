@@ -2,7 +2,7 @@
 	.toggle {
 		display: block;
 		padding-top: .3em;
-		width: 4.3em;
+		width: 5.0em;
 		height: 2.0em;
 		border-radius: 1.3em;
 		border: 2px solid setColor(grey, light);
@@ -29,7 +29,7 @@
 			}
 		}
 		&__input:checked + & &__plate {
-			margin-left: .3em;		
+			margin-left: 1em;		
 		}
 		@include e(switch) {
 			display: block;
@@ -46,6 +46,6 @@
 			}
 		}		
 		&__input:checked + & &__switch {
-			margin-left: 2.4em;		
+			margin-left: 3.1em;		
 		}
 	}
