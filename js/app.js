@@ -3,20 +3,28 @@
 document.addEventListener('DOMContentLoaded', function () {
 	"use strict";
 	// ************************************************************
-	//				Navigation
-	// ************************************************************
-
-	// ************ variables
-	const navButton = document.querySelector("#nav__menu--primary");
-	const navDropdown = document.querySelector("#nav__dropdown");
-	const navClose = document.querySelector("#nav__arrow--primary");
-	const navBar = navDropdown.parentElement;
-	const main = document.querySelector("main");
-	const hideClass = "hidden--small";
+	//				Non Specific Function
+	// ************************************************************	
 	
-	let navOpen = false;
-	// ************ functions
+	// create an li element
+	function createLI (className, text = "") {
+		const li = createElement("li", className, text);
 
+		return li;
+	}
+	
+	// create any type of html element
+	function createElement (type, className, text = "") {
+		const el = document.createElement(type);
+		if (className !== "") {
+			el.classList.add(className);
+		}
+		if (text) {
+			el.textContent = text;
+		}
+		return el;
+	}
+	
 	// set the attributes of an element using an attributes object
 	function setAttributes(element, attributes) {
 		for (let attr in attributes) {
@@ -37,6 +45,34 @@ document.addEventListener('DOMContentLoaded', function () {
 		return element;
 	}
 	
+	// Get top, botom, left or right position of an element
+	function getPosition(element, position) {
+		return (element.getBoundingClientRect()[position]);
+	}
+	
+	// Get height or width of an element as a number
+	function getDimension(element, dimension) {
+		let elemHeight = window.getComputedStyle(element).getPropertyValue(dimension);
+		elemHeight = elemHeight.replace("px", "");
+		return(elemHeight);
+	}
+	
+	// ************************************************************
+	//				Navigation
+	// ************************************************************
+
+	// ************ variables
+	const navButton = document.querySelector("#nav__menu--primary");
+	const navDropdown = document.querySelector("#nav__dropdown");
+	const navClose = document.querySelector("#nav__arrow--primary");
+	const navBar = navDropdown.parentElement;
+	const main = document.querySelector("main");
+	const hideClass = "hidden--small";
+	
+	let navOpen = false;
+	// ************ functions
+
+
 	function viewSize() {
 		const size = window.innerWidth;
 		if (size < 768) {
@@ -145,7 +181,59 @@ document.addEventListener('DOMContentLoaded', function () {
 			navViewXLarge();			
 		}
 	});
+	
+	// ************************************************************
+	//				Alerts
+	// ************************************************************
 
+	// ************* variables
+	const alertUL = document.querySelector(".alert");
+	const alertIcon = document.querySelector("#alert");
+	// ************* functions
+	function createAlerts(alert) {
+		const alertLI = createLI("alert__item", "");
+		const alertH = createElement("p", "alert--flex2", "");
+		alertH.innerHTML = "<strong>Alert</strong> " + alert;
+		alertLI.appendChild(alertH);
+		alertLI.appendChild(createElement("div", "btn--alert", "x" ));
+		alertUL.appendChild(alertLI);
+	}
+		
+	// ************* main
+	createAlerts("You have 16 unread emails");
+	createAlerts("The CEO wants to see you ASAP");
+	createAlerts("You have 4 bills to pay");
+
+	
+	// ************* event listeners
+	alertUL.addEventListener('click', function (e) {
+		const close = e.target;
+		if (close.classList.contains("btn--alert")) {
+			close.parentElement.style.display = "none";
+		} 
+	});	
+	
+	alertIcon.addEventListener('click', function () {
+		const alerts = document.querySelectorAll(".alert__item");
+		try {			// IE and Edge don't support for...of loops
+			for (let alert of alerts) {
+				if (alert) {
+					alert.style.display = "flex";
+				}
+			}
+		}
+		catch(err) {	// falback for IE and Edge
+			for (let i = 0; i < alerts.length; i++) {
+				const alert = alerts[i];
+				if (alert) {
+					alert.style.display = "flex";
+				}	
+			}
+		}
+		
+	});
+	
+	
 
 	// ************************************************************
 	//				Charts
@@ -391,7 +479,7 @@ var mobileUsersPie = new Chart(ctx3, {
 	});
 	
 
-	// ************* Chart event listeners
+	// ========== Chart event listeners
 
 	trafficUL.addEventListener('click', function (e) {
 		const selected = trafficUL.querySelector(".selected");
@@ -435,13 +523,43 @@ var mobileUsersPie = new Chart(ctx3, {
 	
 	function createMemberArea () {
 		for (let member of members) {
-			const infoUL = createElement("ul", "social__stats");
-//			const 
-			infoUL.appendChild(createLI("", member.fullName));
-			
-			membersUL.appendChild(createProfileLI(member.avatar));	
-			membersUL.appendChild(infoUL);
-			
+			if (member.joinDate) {
+				const memberUL = createElement("ul", "members__item");
+				const infoLI = createLI("member__item--flex2", "");
+				const infoUL = createElement("ul", "members__stats");
+				const emailLi = createLI("", "");
+				const emailA = createElement("a", "link", member.email);
+				emailA.setAttribute('href', "mailto:" + member.email);
+				infoUL.appendChild(createLI("", member.fullName));
+				emailLi.appendChild(emailA);
+				infoUL.appendChild(emailLi);
+				infoLI.appendChild(infoUL);
+
+				memberUL.appendChild(createProfileLI(member.avatar));	
+				memberUL.appendChild(infoLI);
+				memberUL.appendChild(createLI("", member.joinDate));	
+				membersUL.appendChild(memberUL);	
+			}
+		}
+	}
+	
+	function createRecentArea () {
+		for (let member of members) {
+			if (member.recentActivity) {
+				const memberUL = createElement("ul", "members__item");
+				const infoLI = createLI("member__item--flex2", "");
+				const infoUL = createElement("ul", "members__stats");
+				const commentLI = createLI("","");
+				commentLI.appendChild(createElement("p", "", member.fullName + " " + member.recentActivity));
+				infoUL.appendChild(commentLI);
+				infoUL.appendChild(createLI("", member.lastOn + " ago"));
+				infoLI.appendChild(infoUL);
+
+				memberUL.appendChild(createProfileLI(member.avatar));	
+				memberUL.appendChild(infoLI);
+
+				recentUL.appendChild(memberUL);	
+			}
 		}
 	}
 	
@@ -453,29 +571,153 @@ var mobileUsersPie = new Chart(ctx3, {
 		return profileLI;
 	}
 	
-	function createLI (className, text = "") {
-		const li = createElement("li", className, text);
 
-		return li;
-	}
-	
-	function createElement (type, className, text = "") {
-		const el = document.createElement(type);
-		if (className !== "") {
-			el.classList.add(className);
-		}
-		if (text) {
-			el.textContent = text;
-		}
-		return el;
-	}
 	
 	// ============ main
 	
-	createMemberArray("Victoria Chambers", "65", "victoria.chambers80@example.com", "10/15/2017", "commented on YourApp's SEO Tips", "4 hours");
+	createMemberArray("Alexandra Breckinridge", "", "lexi.breckinridge91@example.com", "", "", "");
 	createMemberArray("Dale Byrd", "78", "dale.byrd52@example.com", "10/14/2017", "liked the Facebook's Changes for 2017", "5 hours");
-	
+	createMemberArray("Dan Oliver", "43", "dan.oliver82@example.com", "10/13/2017", "posted YourApp's SEO Tips", "1 day");
+	createMemberArray("Dawn Wood", "63", "dawn.wood16@example.com", "10/14/2017", "commented on Facebook's Changes for 2017", "5 hours");
+	createMemberArray("Dennis Patrizio", "", "dennis.patrizio67@example.com", "", "", "");
+	createMemberArray("Elizabeth Jackson", "", "liz.jackson1986@example.com", "", "", "");
+	createMemberArray("Ishmael Natu", "", "ishmael.natu@example.com", "", "", "");
+	createMemberArray("John Iris", "", "john.iris94@example.com", "", "", "");
+	createMemberArray("Victoria Chambers", "65", "victoria.chambers@example.com", "10/15/2017", "commented on YourApp's SEO Tips", "4 hours");
+	createMemberArray("Wolford Brock", "", "wolford.brock.53@example.com", "", "", "");
 	createMemberArea();
+	createRecentArea();
+	
+
+// ************************************************************
+//				Messages
+// ************************************************************	
+	// ============ Variables
+	const messageSearch = document.getElementById("search--message");
+	const messageSend = document.getElementById("btn--send-message");
+	const dropdown = document.getElementById("search__dropdown");
+	let focused = false;  // use to prevent dropdown from disappearing if focus switched from searchbox to dropdown
+	
+	// ============ Functions
+	function populateDropdown() {
+		let i = 0;
+		for (let member of members) {
+			if (member.email) {
+				const msg = member.fullName + " " + member.email;
+				const memberLI = createLI("dropdown__item", msg);
+				memberLI.setAttribute("data--value", member.fullName);
+				memberLI.setAttribute("tabindex", i);				
+				dropdown.appendChild(memberLI);
+				i++;
+			}
+		}
+	}
+	
+	// compute where to put dropdown after list items are added
+	function placeDropdown() {
+		const baseY = getPosition(dropdown.parentElement.parentElement, "top");
+		let offsetY = getPosition(messageSearch, "bottom");
+		dropdown.style.top = offsetY - baseY + "px";			
+	}
+	
+	// ============ Main
+	populateDropdown();
+	const searchItems = dropdown.querySelectorAll("li");
+	
+	// ============ Event Listeners
+	messageSearch.addEventListener('keyup', function (e) {
+		console.log(e.keyCode);
+		focused = true;
+		if (messageSearch.value.length > 0) {
+			dropdown.style.display = "flex";
+			const searchFilter = messageSearch.value.toLowerCase();
+			for (let searchItem of searchItems) {
+				const value = searchItem.textContent.toLowerCase();
+				if (value.indexOf(searchFilter) > -1) {
+					searchItem.style.display = "";
+				} else {
+					searchItem.style.display = "none";				
+				}
+			}
+			placeDropdown();
+			
+		} else {
+			dropdown.style.display = "none";			
+		}
+	});
+	window.addEventListener('click', function (e) {
+		if (e.target !== messageSearch) {
+			dropdown.style.display = "none";	
+			focused = false;
+		}
+	});
+	
+
+	
+	dropdown.addEventListener('click', function(e) {
+	const target = e.target;
+		if (target.tagName === "LI") {
+			messageSearch.value = target.getAttribute("data--value");
+		}
+	
+	});
+	
+	messageSend.addEventListener('click', function(e) {
+		e.preventDefault();
+		const modalHeadline = overlay.querySelector("h2");
+		const modalText = overlay.querySelector("p");
+		const message = document.getElementById("area--message");
+		modalHeadline.classList.remove("warning");
+		modalHeadline.classList.remove("success");	
+		if (messageSearch.value === "") {  
+			modalHeadline.textContent = "Warning!";
+			modalHeadline.classList.add("warning");
+			modalText.textContent = "No name was selected.";
+			overlay.style.display = "block";
+		} else if (!message.value) { 
+			modalHeadline.textContent = "Warning!";
+			modalHeadline.classList.add("warning");
+			modalText.textContent = "You must have a message.";
+			overlay.style.display = "block";		
+		} else {
+			let valid = false;
+			for (let member of members) {
+				if (member.fullName === messageSearch.value) {
+					valid = true;
+					break;
+				}
+				
+				}
+				if (valid === false) {
+					modalHeadline.textContent = "Warning!";
+					modalHeadline.classList.add("warning");
+					modalText.textContent = "No such member.";
+					overlay.style.display = "block";
+				} else {
+					modalHeadline.textContent = "Success!";
+					modalHeadline.classList.add("success");
+					modalText.textContent = "Message successfully sent to " +
+											messageSearch.value +
+											".";
+					overlay.style.display = "block";
+			}
+		}
+	});
+
+
+// ************************************************************
+//				Settings
+// ************************************************************
+	
+
+// ************************************************************
+//				Modal
+// ************************************************************
+	const overlay = document.querySelector(".overlay");
+	const modalClose = document.querySelector(".btn--modal");
+	modalClose.addEventListener('click', function() {
+		overlay.style.display = "none";
+	});	
 });
 
 

@@ -1,6 +1,6 @@
-/* ========================================
-			Navigation
-=========================================== */
+// ========================================
+//			Navigation
+// =========================================== 
 
 /* nav elements */
 .nav-bar {
@@ -78,20 +78,6 @@
 	}
 }
 
-/* nav button elements */
-.button--menu,
-.button--arrow {
-	background-color: $color-shadow;
-	opacity: .75;
-	transition: opacity .3s;
-	cursor: pointer;
-	min-height: 45px;
-}
-
-.button--arrow {
-	display: none;
-}
-
 .button--menu:hover,
 .button--arrow:hover {
 	opacity: 1;
@@ -119,17 +105,28 @@
 	right: 0;
 	top: 10px;
 	padding-left:  20px;
+	@include mq(medium) {
+		position: inherit;
+		top: auto;
+		right: auto;
+		padding-right: 15px;
+		padding-top:  10px;
+		border-right: 1px solid $color-shadow;
+	}
+	&::after {
+		content: "";
+		display: inline-block;
+		width: 9px;
+		height: 9px;
+		border-radius: 7.5px;
+		background-color: #85ED50;
+		transform: translateY(-25px) translateX(-5px);
+		@include mq(medium) {
+			box-shadow: 0 0 3px 0 $color-shadow inset;
+		}			
+	}
 }
 
-#alert::after {
-	content: "";
-	display: inline-block;
-	width: 9px;
-	height: 9px;
-	border-radius: 7.5px;
-    background-color: #85ED50;
-	transform: translateY(-25px) translateX(-5px);
-}
 
 [class*="__container"] { 		
 		margin-top: 0;

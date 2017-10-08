@@ -7,71 +7,20 @@
 //		Components
 @import "components/index";
 
-/* ========================================
-			Tablet/small desktop mode
-=========================================== */
+// ========================================
+//			Tablet/small desktop mode
+// ========================================
 
 @include mq(medium) {
-	
-	#alert {
-		position: inherit;
-		top: auto;
-		right: auto;
-		padding-right: 15px;
-		padding-top:  10px;
-		border-right: 1px solid $color-shadow;
 
-	}
-	
-	#alert::after {
-		box-shadow: 0 0 3px 0 $color-shadow inset;
-	}
-
-	.button--menu {
-		display: none;
-	}
-	
-	.button--arrow {
-		display: block;
-		width: 25px;
-		padding-left: 0;
-		padding-right: 0;
-	}
-	
 	.button--arrow img {
 		transform: rotate(270deg);
 		width: 25px;
 		height: 25px;
 	}
 
-	.title {
-		flex-direction: row;
-		justify-content: space-between;
-		padding: 0 0 0 45px;
-	}
-	
-	.title li {
-		width: 25%;
-	}
-	
-	.title li:last-child {
-		flex-grow: 2;
-		text-align: right;
-		padding: 15px;
-		margin-left: 45px;
-		background-color: #9A8F9E;
-	
-	}
-
 	.button--form {
 		box-shadow: 0 0 20px 0 #110044 inset;
-	}
-
-}
-
-@media screen and (min-width: 1200px) {
-	.button--arrow {
-		display: none;
 	}
 
 }

@@ -1,0 +1,26 @@
+.alert {
+	@extend %container-flex-verticle;
+	width: 100%;
+	@include e(item) {
+		@extend %container-flex-fixed;
+		width: 85%;
+		margin: 5px auto;
+		background-color: $color-primary;
+		border-radius: $border--rounded-corners;
+		color: $color-font-white;
+		& p {
+			margin: 10px 15px;
+		}
+	}
+}
+
+.btn--alert {
+	width: 45px;
+	&:hover {
+		background-color: $color-highlight;
+	}
+	&:active {
+		background-color: $color-highlight;
+	}
+}
+

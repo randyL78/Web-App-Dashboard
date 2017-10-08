@@ -36,6 +36,8 @@ $de-york		: #78CF82;
 $pastel-green	: #85db80;
 $glacier		: #74b1bf;
 $mulled-wine	: #4D4C72;
+$amaranth		: #E61E57;
+
 
 //		Colors by usage
 
@@ -44,6 +46,7 @@ $color-secondary	: $de-york;
 $color-compliment	: $glacier;
 $color-highlight	: $pastel-green;
 $color-shadow		: $mulled-wine;
+$color-warning		: $amaranth;
 
 
 // 		Color palettes
@@ -85,6 +88,7 @@ $border--round				: 50%;
 $border--rounded-corners	: 5px;
 $border--pill				: 25px;
 $border--theme				: 1px solid $color-font-lighter;
+$border--thick				: 3px solid $color-font-light;
 
 // ============= Breakpoints =======================
 

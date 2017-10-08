@@ -55,11 +55,19 @@
 	cursor: pointer;
 }
 
+%button-navs {
+	background-color: $color-shadow;
+	opacity: .75;
+	transition: opacity .3s;
+	cursor: pointer;
+	min-height: 45px;
+}
+
 // =============== Links ========================
 
 %links {
 	text-decoration: none;  //	Remove Underlines
-	color: $color-secondary;
+	color: $color-shadow;
 }
 
 // =============== Images =======================
@@ -152,6 +160,11 @@
 		text-align: center;
 }
 
+%container-flex-verticle {
+	display: flex;
+	flex-direction: column;
+	
+}
 
 
 

@@ -1,0 +1,68 @@
+.members {
+	@extend %container-flex-verticle;
+	font-size: .9em;
+	@include e(item) {
+		@extend %container-flex-fixed;
+		justify-content: space-between;
+		align-content: center;
+		flex-wrap: wrap;
+		padding: em(15px);
+		margin-left: auto;
+		border-bottom: $border--theme;
+		border-radius: $border--rounded-corners;
+		width: 100%;
+		text-align: left;
+		@media (min-width: $brkpoint--md + 1) and (max-width: 1024px) {
+			flex-direction: column;
+			text-align: center;
+		}
+		@media (min-width: 1px) and (max-width: 480px) {
+			flex-direction: column;
+			text-align: center;
+		}
+		#recent &::after {
+			font-size: em(30px);
+			font-weight: $font-weight--bold;
+			color: $color-primary;
+			content: ">";
+			display: inline-block;
+			width: 30px;
+			height: 30px;
+			transform: translateY(5px);	
+			@media (min-width: 1px) and (max-width: 480px) {
+				content: "^";	
+			}		
+			@media (min-width: $brkpoint--md + 1) and (max-width: 1024px) {
+				content: "^";
+			}	
+		}
+		
+		& p {
+			@include margin-top-bottom(0);
+			font-size: .9em;
+		}
+	}
+	@include e(stats) {
+		@include margin-left-right(auto);
+		display: flex;
+		flex-direction: column;
+		@include mq(medium) {
+			text-align: left;
+		}
+		@media (min-width: 1px) and (max-width: 480px) {
+			text-align: center
+		}		
+		@media (min-width: $brkpoint--md + 1) and (max-width: 1024px) {
+			text-align: center
+		}		
+	}
+	
+}
+
+[class$="--flex2"] {
+	flex-grow: 2;
+	padding-left: 5px;
+	@include mq(large) {
+		padding-left: 25px;
+	}
+}

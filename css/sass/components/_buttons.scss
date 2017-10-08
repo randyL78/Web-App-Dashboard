@@ -2,6 +2,28 @@
 //		Butttons 		  						//
 //////////////////////////////////////////////////
 
+.button {
+	@include m(menu) {
+		@extend %button-navs;
+		@include mq(medium) {
+			display: none;
+		}
+	}
+	@include m(arrow) {
+		@extend %button-navs;
+		display: none;
+		@include mq(medium) {
+			display: block;
+			width: 25px;
+			padding-left: 0;
+			padding-right: 0;
+		}
+		@include mq(large) {
+			display: none;
+		}
+	}	
+}
+
 // color buttons when theme__colors class is included
 .theme__colors.btn {
   @include ui-colors($ui-colors);
@@ -12,11 +34,12 @@
  	@extend %button;
 	text-transform: uppercase;  // 	Capitalize first letter of each word
 	transition: box-shadow $trns--duration-fast, background-color $trns--duration-fast;
+
 	&:hover {
 //		box-shadow: 0 0 28px 0 rgba($black, .5) inset;
 	}
 	@include mq(medium) {
-		
+			@include doubly(em(30px));
 	}
 }
 

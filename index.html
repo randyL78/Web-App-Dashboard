@@ -56,6 +56,7 @@
 				<div class="grid__col--3"><h2 class="headline--secondary">Dashboard</h2></div>
 				<div class="grid__col--9 search--bar"><input class="search" type="search" placeholder="Search"></div>
 			</div>
+<!-- Alerts -->
 			<div class="grid__row">
 				<ul class="alert">
 					
@@ -126,11 +127,13 @@
 					</div>
 				</div>
 			</div>
+	<!--  Members    -->
 			<div class="grid__row">	
 				<div class="grid__item col--1">
 					<h3>New Members</h3>
 					<ul class="members" id="members">
 					</ul>
+	<!--  Recent Activity    -->
 				</div>		
 				<div class="grid__item col--1">
 					<h3>Recent Activity</h3>
@@ -138,15 +141,20 @@
 					</ul>
 				</div>
 			</div>
+	<!--  Message Center    -->
 			<div class="grid__row">	
 				<div class="grid__item col--1">
 					<h3>Message User</h3>
-					<form>
-						<input type="search" placeholder="Search for User">
-						<textarea  placeholder="Message for User"></textarea>
-						<button class="btn--form" type="submit">Send</button>
+					<form action="index.html" method="post">
+						<input type="search" placeholder="Search for User" id="search--message">
+						<ul class="dropdown" id="search__dropdown">
+						</ul>
+						
+						<textarea  placeholder="Message for User" id="area--message"></textarea>
+						<button class="btn--form" type="submit" id="btn--send-message">Send</button>
 					</form>
 				</div>
+	<!--  Settings    -->
 				<div class="grid__item col--1">
 					<h3>Settings</h3>
 					<ul>
@@ -210,6 +218,14 @@
 			</div>
 
 		</main>
+<!--  modal    -->
+		<div class="overlay">
+			<div class="modal">
+				<h2>Attention!</h2>
+				<p>This is a test modal</p>
+				<button class="btn--modal">Close</button>
+			</div>
+		</div>
 
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.bundle.min.js" type="text/javascript"></script>
 		<script src="js/app.js" type="text/javascript"></script>
