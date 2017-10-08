@@ -484,7 +484,7 @@ var mobileUsersPie = new Chart(ctx3, {
 
 	// =========== variables
 	const members = [];
-	const membersUL = document.getElementById("members");
+	const membersUL = document.getElementById("members__list");
 	const recentUL = document.getElementById("recent");
 	const imgURL = "./images/";
 	

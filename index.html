@@ -33,16 +33,16 @@
 			</button>
 			<ul class="nav__container hidden--small" id="nav__dropdown">
 				<li class="nav__item selected">
-					<img class="nav__icon" alt="Dashboard" src="icons/icon-dashboard.svg">
+					<a href="#"><img class="nav__icon" alt="Dashboard" src="icons/icon-dashboard.svg"></a>
 				</li>
 				<li class="nav__item">
-					<img class="nav__icon" alt="Members" src="icons/icon-members.svg">
+					<a href="#"><img class="nav__icon" alt="Members" src="icons/icon-members.svg"></a>
 				</li>
 				<li class="nav__item">
-					<img class="nav__icon" alt="Visits" src="icons/icon-visits.svg">
+					<a href="#"><img class="nav__icon" alt="Visits" src="icons/icon-visits.svg"></a>
 				</li>
 				<li class="nav__item">
-					<img class="nav__icon" alt="Settings" src="icons/icon-settings.svg">
+					<a href="#"><img class="nav__icon" alt="Settings" src="icons/icon-settings.svg"></a>
 				</li>
 			</ul>
 			<button class="button--arrow" id="nav__arrow--primary">
@@ -51,7 +51,7 @@
 
 		</nav>
 <!-- Dashboard -->
-		<main class="container">
+		<main class="container" id="dashboard">
 			<div class="grid__row title">	
 				<div class="grid__col--3"><h2 class="headline--secondary">Dashboard</h2></div>
 				<div class="grid__col--9 search--bar"><input class="search" type="search" placeholder="Search"></div>
@@ -128,10 +128,10 @@
 				</div>
 			</div>
 	<!--  Members    -->
-			<div class="grid__row">	
+			<div class="grid__row" id="members">	
 				<div class="grid__item col--1">
 					<h3>New Members</h3>
-					<ul class="members" id="members">
+					<ul class="members" id="members__list">
 					</ul>
 	<!--  Recent Activity    -->
 				</div>		
@@ -155,7 +155,7 @@
 					</form>
 				</div>
 	<!--  Settings    -->
-				<div class="grid__item col--1">
+				<div class="grid__item col--1" id="settings">
 					<h3>Settings</h3>
 					<ul class="settings">
 						<li class="settings__item">

@@ -719,6 +719,9 @@ select::placeholder {
       .members__item {
         flex-direction: column;
         text-align: center; } }
+    #recent .members__item:hover {
+      background-color: #85db80;
+      color: #fff; }
     #recent .members__item::after {
       font-size: 1.66667em;
       font-weight: 700;
@@ -734,6 +737,9 @@ select::placeholder {
       @media (min-width: 769px) and (max-width: 1024px) {
         #recent .members__item::after {
           content: "^"; } }
+      #recent .members__item::after:hover {
+        background-color: #85db80;
+        color: #fff; }
     .members__item p {
       margin-top: 0;
       margin-bottom: 0;

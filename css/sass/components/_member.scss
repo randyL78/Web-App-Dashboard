@@ -12,6 +12,7 @@
 		border-radius: $border--rounded-corners;
 		width: 100%;
 		text-align: left;
+
 		@media (min-width: $brkpoint--md + 1) and (max-width: 1024px) {
 			flex-direction: column;
 			text-align: center;
@@ -20,21 +21,31 @@
 			flex-direction: column;
 			text-align: center;
 		}
-		#recent &::after {
-			font-size: em(30px);
-			font-weight: $font-weight--bold;
-			color: $color-primary;
-			content: ">";
-			display: inline-block;
-			width: 30px;
-			height: 30px;
-			transform: translateY(5px);	
-			@media (min-width: 1px) and (max-width: 480px) {
-				content: "^";	
-			}		
-			@media (min-width: $brkpoint--md + 1) and (max-width: 1024px) {
-				content: "^";
-			}	
+		#recent & {
+			&:hover {
+				background-color: $color-highlight;
+				color: $color-font-white;
+			}
+			&::after {
+				font-size: em(30px);
+				font-weight: $font-weight--bold;
+				color: $color-primary;
+				content: ">";
+				display: inline-block;
+				width: 30px;
+				height: 30px;
+				transform: translateY(5px);	
+				@media (min-width: 1px) and (max-width: 480px) {
+					content: "^";	
+				}		
+				@media (min-width: $brkpoint--md + 1) and (max-width: 1024px) {
+					content: "^";
+				}	
+				&:hover {
+					background-color: $color-highlight;
+					color: $color-font-white;
+				}
+			}
 		}
 		
 		& p {
