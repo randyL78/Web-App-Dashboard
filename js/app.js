@@ -752,10 +752,40 @@ var mobileUsersPie = new Chart(ctx3, {
 		
 	});
 	resetButton.addEventListener('click', function() {
+		modalHeadline.classList.remove("warning");
+		modalHeadline.classList.remove("success");	
 		toggleEmail.checked = false;
 		toggleProfile.checked = false;
 		timezone.value = "";
+		if (canStore) {
+			localStorage.clear();
+		}
+			modalHeadline.textContent = "Success!";
+			modalHeadline.classList.add("success");
+			modalText.textContent = "Your settings have been reset.";
+			overlay.style.display = "block";	
+
 	});
+	
+	if (canStore) {
+		try {
+		let emailSet = localStorage.getItem(toggleEmail.getAttribute("id"));
+		if (emailSet === "true") {
+			toggleEmail.checked = true;		
+		} else {
+			toggleEmail.checked = false;
+		}
+		let profileSet = localStorage.getItem(toggleProfile.getAttribute("id"));
+		if (profileSet === "true") {
+			toggleProfile.checked = true;		
+		} else {
+			toggleProfile.checked = false;
+		}	
+		timezone.value = localStorage.getItem(timezone.getAttribute("id"));	
+		} catch(e) {
+			console.log("no local storage set");
+		}
+	}
 
 });		
 
