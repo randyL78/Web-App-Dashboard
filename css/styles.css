@@ -314,7 +314,6 @@ header {
   padding-bottom: 45px; }
   @media (min-width: 769px) {
     .container {
-      transition: margin-left 0.4s ease-in;
       margin-left: 25px;
       margin-top: 78px;
       flex-direction: row;
@@ -464,7 +463,6 @@ header {
         left: 0;
         height: 100%;
         width: 25px;
-        transition: width 0.4s ease-in;
         flex-direction: row; } }
     @media (min-width: 1200px) {
       .nav-bar__verticle {
@@ -522,6 +520,11 @@ header {
 
 .button--arrow img {
   transform: rotate(180deg); }
+  @media (min-width: 769px) {
+    .button--arrow img {
+      transform: rotate(270deg);
+      width: 25px;
+      height: 25px; } }
 
 #alert {
   position: absolute;
@@ -813,13 +816,47 @@ select::placeholder {
   background: #85db80;
   color: #fff; }
 
-@media (min-width: 769px) {
-  .button--arrow img {
-    transform: rotate(270deg);
-    width: 25px;
-    height: 25px; }
-
-  .button--form {
-    box-shadow: 0 0 20px 0 #110044 inset; } }
+.toggle {
+  display: block;
+  padding-top: .3em;
+  width: 4.3em;
+  height: 2.0em;
+  border-radius: 1.3em;
+  border: 2px solid #868585;
+  overflow: hidden;
+  background-color: #7477BF; }
+  @media (min-width: 769px) {
+    .toggle {
+      background-color: #9ea0d2;
+      box-shadow: 0 2px 3px 1px #3e3d3d inset; } }
+  .toggle__input {
+    display: none; }
+  .toggle__plate {
+    color: #fff;
+    margin-left: -2.1em;
+    transition: margin 0.4s ease-in; }
+    .toggle__plate:before {
+      padding-right: 1.2em;
+      content: "ON"; }
+    .toggle__plate:after {
+      padding-left: 1.3em;
+      content: "OFF"; }
+  .toggle__input:checked + .toggle .toggle__plate {
+    margin-left: .3em; }
+  .toggle__switch {
+    display: block;
+    position: relative;
+    width: 1.7em;
+    height: 1.7em;
+    border: 1px solid #868585;
+    border-radius: 50%;
+    background: #fff;
+    transition: margin 0.4s ease-in;
+    transform: translateY(-1.4em); }
+    @media (min-width: 769px) {
+      .toggle__switch {
+        box-shadow: -2px -2px 6px 2px #535252 inset; } }
+  .toggle__input:checked + .toggle .toggle__switch {
+    margin-left: 2.4em; }
 
 /*# sourceMappingURL=styles.css.map */
