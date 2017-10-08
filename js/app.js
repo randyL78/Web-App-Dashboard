@@ -233,7 +233,17 @@ document.addEventListener('DOMContentLoaded', function () {
 		
 	});
 	
-	
+	// ************************************************************
+	//				Modal
+	// ************************************************************
+	const overlay = document.querySelector(".overlay");
+	const modalClose = document.querySelector(".btn--modal");
+	const modalHeadline = overlay.querySelector("h2");
+	const modalText = overlay.querySelector("p");
+	modalClose.addEventListener('click', function() {
+		overlay.style.display = "none";
+	});	
+
 
 	// ************************************************************
 	//				Charts
@@ -664,8 +674,6 @@ var mobileUsersPie = new Chart(ctx3, {
 	
 	messageSend.addEventListener('click', function(e) {
 		e.preventDefault();
-		const modalHeadline = overlay.querySelector("h2");
-		const modalText = overlay.querySelector("p");
 		const message = document.getElementById("area--message");
 		modalHeadline.classList.remove("warning");
 		modalHeadline.classList.remove("success");	
@@ -708,17 +716,50 @@ var mobileUsersPie = new Chart(ctx3, {
 // ************************************************************
 //				Settings
 // ************************************************************
+	const saveButton = document.getElementById("btn--save");
+	const resetButton = document.getElementById("btn--reset");
+	const toggleEmail = document.getElementById("toggleEmail");
+	const toggleProfile = document.getElementById("toggleProfile");
+	const timezone = document.getElementById("timezone");
 	
+	function canStore() {
+		try {
+			return 'localStorage' in window && window.localStorage !== null;
+		} catch(e) {
+			return false;	
+		}
+	}
+	
+	
+	saveButton.addEventListener('click', function() {
+		modalHeadline.classList.remove("warning");
+		modalHeadline.classList.remove("success");	
+		if (canStore) {
+			localStorage.setItem(toggleEmail.getAttribute("id"), toggleEmail.checked);
+			localStorage.setItem(toggleProfile.getAttribute("id"), toggleProfile.checked);
+			localStorage.setItem(timezone.getAttribute("id"), timezone.value);
+			modalHeadline.textContent = "Success!";
+			modalHeadline.classList.add("succcess");
+			modalText.textContent = "Your settings have been saved.";
+			overlay.style.display = "block";	
 
-// ************************************************************
-//				Modal
-// ************************************************************
-	const overlay = document.querySelector(".overlay");
-	const modalClose = document.querySelector(".btn--modal");
-	modalClose.addEventListener('click', function() {
-		overlay.style.display = "none";
-	});	
-});
+		} else {
+			modalHeadline.textContent = "Warning!";
+			modalHeadline.classList.add("warning");
+			modalText.textContent = "This browser does not support local storage.";
+			overlay.style.display = "block";	
+		}
+		
+	});
+	resetButton.addEventListener('click', function() {
+		toggleEmail.checked = false;
+		toggleProfile.checked = false;
+		timezone.value = "";
+	});
+
+});		
+
+
 
 
 

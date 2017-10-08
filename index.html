@@ -159,23 +159,23 @@
 					<h3>Settings</h3>
 					<ul class="settings">
 						<li class="settings__item">
-							<label for="go__toggle1">Send Email Notifications</label>
-							<input type="checkbox" class="toggle__input" id="go__toggle1">
-							<label for="go__toggle1" class="toggle">
+							<label for="toggleEmail">Send Email Notifications</label>
+							<input type="checkbox" class="toggle__input" id="toggleEmail">
+							<label for="toggleEmail" class="toggle">
 								<span class="toggle__plate"></span>
 								<span class="toggle__switch"></span>
 							</label>
 						</li>
 						<li class="settings__item">
-						<label for="go__toggle2">Set Profile to Public</label>
-						<input type="checkbox" class="toggle__input" id="go__toggle2">
-							<label for="go__toggle2" class="toggle">
+						<label for="toggleProfile">Set Profile to Public</label>
+						<input type="checkbox" class="toggle__input" id="toggleProfile">
+							<label for="toggleProfile" class="toggle">
 								<span class="toggle__plate"></span>
 								<span class="toggle__switch"></span>
 							</label>
 						</li>
 				</ul>
-					<select>	      
+					<select id ="timezone">	      
 						<option value="" selected="selected">select your timezone</option>
 						<option value="(GMT -5:00) Eastern Time (US & Canada), Bogota, Lima">(GMT -5:00) Eastern Time (US & Canada), Bogota, Lima</option>
 						<option value="(GMT -6:00) Central Time (US & Canada), Mexico City">(GMT -6:00) Central Time (US & Canada), Mexico City</option>
@@ -225,8 +225,8 @@
 						<option value="(GMT +14:00) Line Islands, Tokelau">(GMT +14:00) Line Islands, Tokelau</option>
 					</select>
 					<div class="nav-bar">
-						<button class="btn--form">Save</button>
-						<button class="btn--form cancel">Reset</button>
+						<button class="btn--form" id="btn--save">Save</button>
+						<button class="btn--form cancel" id="btn--reset">Reset</button>
 					</div>
 				</div>
 			</div>
