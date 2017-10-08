@@ -35,7 +35,7 @@
   margin-right: auto; }
 
 .headline--primary {
-  color: color-font-white;
+  color: #fff;
   font-weight: 300;
   font-size: 2em; }
   @media (min-width: 769px) {
@@ -44,7 +44,6 @@
       padding-left: 20px; } }
 
 .headline--secondary {
-  color: palette(grey, medium);
   font-weight: 300;
   font-size: 1.44444em;
   margin-bottom: 15px; }
