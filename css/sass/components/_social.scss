@@ -26,10 +26,15 @@
 		height: 70px;
 		width: 70px;
 		margin-top: em(5px);
-		@include mq(medium-only) {
+		@include mq(medium) {
 			height: 50px;
 			width: 50px;
 			margin-top: em(15px);			
+		}
+		@include mq(large) {
+			height: 70px;
+			width: 70px;
+			margin-top: em(5px);			
 		}
 	}
 	@include e(svg) {
@@ -37,9 +42,13 @@
 		fill: $white;
 		width: 35px;
 		height: 35px;
-		@include mq(medium-only) {
+		@include mq(medium) {
 			width: 25px;
 			height: 25px;
+		}
+		@include mq(large) {
+			width: 35px;
+			height: 35px;		
 		}
 	}
 	@include e(stats) {
@@ -58,8 +67,11 @@
 		font-size: em(40px);
 		font-weight: $font-weight--light;
 		@include margin-top-bottom(0);
-		@include mq(medium-only) {
+		@include mq(medium) {
 			font-size: em(30px);
+		}
+		@include mq(large) {
+			font-size: em(45px);			
 		}
 	}
 }

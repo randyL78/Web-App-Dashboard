@@ -146,9 +146,9 @@
 				<div class="grid__item col--1">
 					<h3>Message User</h3>
 					<form action="index.html" method="post">
-						<input type="search" placeholder="Search for User" id="search--message">
-						<ul class="dropdown" id="search__dropdown">
-						</ul>
+						<input type="search" placeholder="Search for User" id="search--message" list="search__dropdown">
+						<datalist id="search__dropdown">
+						</datalist>
 						
 						<textarea  placeholder="Message for User" id="area--message"></textarea>
 						<button class="btn--form" type="submit" id="btn--send-message">Send</button>

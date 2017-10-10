@@ -26,10 +26,6 @@ document.addEventListener('DOMContentLoaded', function () {
 		return el;
 	}	
 
-	// Get top, botom, left or right position of an element
-	function getPosition(element, position) {
-		return (element.getBoundingClientRect()[position]);
-	}
 	
 	// ************************************************************
 	//				Navigation
@@ -487,7 +483,8 @@ var mobileUsersPie = new Chart(ctx3, {
 	const membersUL = document.getElementById("members__list");
 	const recentUL = document.getElementById("recent");
 	const imgURL = "./images/";
-	
+	const dropdown = document.getElementById("search__dropdown"); // used for search bar, declared here so it can defined before being populated
+
 	
 	// =========== constructors
 	function Member(name, pic, email, date, activity, time) {
@@ -507,45 +504,51 @@ var mobileUsersPie = new Chart(ctx3, {
 		members.push(member);
 	}
 	
-	function createMemberArea () {
+	
+	function populateMemberElements () {
 		for (let member of members) {
-			if (member.joinDate) {
-				const memberUL = createElement("ul", "members__item");
-				const infoLI = createLI("member__item--flex2", "");
-				const infoUL = createElement("ul", "members__stats");
-				const emailLi = createLI("", "");
-				const emailA = createElement("a", "link", member.email);
-				emailA.setAttribute('href', "mailto:" + member.email);
-				infoUL.appendChild(createLI("", member.fullName));
-				emailLi.appendChild(emailA);
-				infoUL.appendChild(emailLi);
-				infoLI.appendChild(infoUL);
-
-				memberUL.appendChild(createProfileLI(member.avatar));	
-				memberUL.appendChild(infoLI);
-				memberUL.appendChild(createLI("", member.joinDate));	
-				membersUL.appendChild(memberUL);	
-			}
+			createMemberArea(member);	
+			createRecentArea (member);
+			populateDropdown(member);  // for search bar
 		}
 	}
 	
-	function createRecentArea () {
-		for (let member of members) {
-			if (member.recentActivity) {
-				const memberUL = createElement("ul", "members__item");
-				const infoLI = createLI("member__item--flex2", "");
-				const infoUL = createElement("ul", "members__stats");
-				const commentLI = createLI("","");
-				commentLI.appendChild(createElement("p", "", member.fullName + " " + member.recentActivity));
-				infoUL.appendChild(commentLI);
-				infoUL.appendChild(createLI("", member.lastOn + " ago"));
-				infoLI.appendChild(infoUL);
+	function createMemberArea (member) {
+		if (member.joinDate) {
+			const memberUL = createElement("ul", "members__item");
+			const infoLI = createLI("member__item--flex2", "");
+			const infoUL = createElement("ul", "members__stats");
+			const emailLi = createLI("", "");
+			const emailA = createElement("a", "link", member.email);
+			
+			emailA.setAttribute('href', "mailto:" + member.email);
+			infoUL.appendChild(createLI("", member.fullName));
+			emailLi.appendChild(emailA);
+			infoUL.appendChild(emailLi);
+			infoLI.appendChild(infoUL);
 
-				memberUL.appendChild(createProfileLI(member.avatar));	
-				memberUL.appendChild(infoLI);
+			memberUL.appendChild(createProfileLI(member.avatar));	
+			memberUL.appendChild(infoLI);
+			memberUL.appendChild(createLI("", member.joinDate));	
+			membersUL.appendChild(memberUL);	
+		}
+	}
+	
+	function createRecentArea (member) {
+		if (member.recentActivity) {
+			const memberUL = createElement("ul", "members__item");
+			const infoLI = createLI("member__item--flex2", "");
+			const infoUL = createElement("ul", "members__stats");
+			const commentLI = createLI("","");
+			commentLI.appendChild(createElement("p", "", member.fullName + " " + member.recentActivity));
+			infoUL.appendChild(commentLI);
+			infoUL.appendChild(createLI("", member.lastOn + " ago"));
+			infoLI.appendChild(infoUL);
 
-				recentUL.appendChild(memberUL);	
-			}
+			memberUL.appendChild(createProfileLI(member.avatar));	
+			memberUL.appendChild(infoLI);
+
+			recentUL.appendChild(memberUL);	
 		}
 	}
 	
@@ -571,9 +574,8 @@ var mobileUsersPie = new Chart(ctx3, {
 	createMemberArray("John Iris", "", "john.iris94@example.com", "", "", "");
 	createMemberArray("Victoria Chambers", "65", "victoria.chambers@example.com", "10/15/2017", "commented on YourApp's SEO Tips", "4 hours");
 	createMemberArray("Wolford Brock", "", "wolford.brock.53@example.com", "", "", "");
-	createMemberArea();
-	createRecentArea();
-	
+	populateMemberElements();
+
 
 // ************************************************************
 //				Messages
@@ -581,73 +583,18 @@ var mobileUsersPie = new Chart(ctx3, {
 	// ============ Variables
 	const messageSearch = document.getElementById("search--message");
 	const messageSend = document.getElementById("btn--send-message");
-	const dropdown = document.getElementById("search__dropdown");
-	let focused = false;  // use to prevent dropdown from disappearing if focus switched from searchbox to dropdown
 	
 	// ============ Functions
-	function populateDropdown() {
-		let i = 0;
-		for (let member of members) {
-			if (member.email) {
-				const msg = member.fullName + " " + member.email;
-				const memberLI = createLI("dropdown__item", msg);
-				memberLI.setAttribute("data--value", member.fullName);
-				memberLI.setAttribute("tabindex", i);				
-				dropdown.appendChild(memberLI);
-				i++;
-			}
+	function populateDropdown(member) {
+		if (member.email) {
+			const searchOption = createElement("option", "", "");
+			searchOption.setAttribute("value", member.fullName);	
+			dropdown.appendChild(searchOption);
 		}
 	}
 	
-	// compute where to put dropdown after list items are added
-	function placeDropdown() {
-		const baseY = getPosition(dropdown.parentElement.parentElement, "top");
-		let offsetY = getPosition(messageSearch, "bottom");
-		dropdown.style.top = offsetY - baseY + "px";			
-	}
-	
-	// ============ Main
-	populateDropdown();
-	const searchItems = dropdown.querySelectorAll("li");
 	
 	// ============ Event Listeners
-	messageSearch.addEventListener('keyup', function (e) {
-		console.log(e.keyCode);
-		focused = true;
-		if (messageSearch.value.length > 0) {
-			dropdown.style.display = "flex";
-			const searchFilter = messageSearch.value.toLowerCase();
-			for (let searchItem of searchItems) {
-				const value = searchItem.textContent.toLowerCase();
-				if (value.indexOf(searchFilter) > -1) {
-					searchItem.style.display = "";
-				} else {
-					searchItem.style.display = "none";				
-				}
-			}
-			placeDropdown();
-			
-		} else {
-			dropdown.style.display = "none";			
-		}
-	});
-	window.addEventListener('click', function (e) {
-		if (e.target !== messageSearch) {
-			dropdown.style.display = "none";	
-			focused = false;
-		}
-	});
-	
-
-	
-	dropdown.addEventListener('click', function(e) {
-	const target = e.target;
-		if (target.tagName === "LI") {
-			messageSearch.value = target.getAttribute("data--value");
-		}
-	
-	});
-	
 	messageSend.addEventListener('click', function(e) {
 		e.preventDefault();
 		const message = document.getElementById("area--message");
@@ -740,7 +687,6 @@ var mobileUsersPie = new Chart(ctx3, {
 			modalHeadline.classList.add("success");
 			modalText.textContent = "Your settings have been reset.";
 			overlay.style.display = "block";	
-
 	});
 	
 	if (canStore) {

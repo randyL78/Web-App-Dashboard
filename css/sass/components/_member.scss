@@ -3,6 +3,8 @@
 	font-size: .9em;
 	@include e(item) {
 		@extend %container-flex-fixed;
+		flex-direction: column;
+		text-align: center;	
 		justify-content: space-between;
 		align-content: center;
 		flex-wrap: wrap;
@@ -11,16 +13,20 @@
 		border-bottom: $border--theme;
 		border-radius: $border--rounded-corners;
 		width: 100%;
-		text-align: left;
+		@include mq(small) {
+			flex-direction: row;
+			text-align: left;
+		}
+		@include mq(medium) {
+			flex-direction: column;
+			text-align: center;
+		}
+		@include mq(large) {
+			flex-direction: row;
+			text-align: left;
+		}
+		
 
-		@media (min-width: $brkpoint--md + 1) and (max-width: 1024px) {
-			flex-direction: column;
-			text-align: center;
-		}
-		@media (min-width: 1px) and (max-width: 480px) {
-			flex-direction: column;
-			text-align: center;
-		}
 		#recent & {
 			&:hover {
 				background-color: $color-highlight;
@@ -30,17 +36,20 @@
 				font-size: em(30px);
 				font-weight: $font-weight--bold;
 				color: $color-primary;
-				content: ">";
+				content: "^";
 				display: inline-block;
 				width: 30px;
 				height: 30px;
 				transform: translateY(5px);	
-				@media (min-width: 1px) and (max-width: 480px) {
-					content: "^";	
+				@include mq(small) {
+					content: ">";	
 				}		
-				@media (min-width: $brkpoint--md + 1) and (max-width: 1024px) {
+				@include mq(medium) {
 					content: "^";
 				}	
+				@include mq(large) {
+					content: ">";	
+				}
 				&:hover {
 					background-color: $color-highlight;
 					color: $color-font-white;
@@ -57,15 +66,16 @@
 		@include margin-left-right(auto);
 		display: flex;
 		flex-direction: column;
-		@include mq(medium) {
+		text-align: center;
+		@include mq(small) {
 			text-align: left;
 		}
-		@media (min-width: 1px) and (max-width: 480px) {
-			text-align: center
-		}		
-		@media (min-width: $brkpoint--md + 1) and (max-width: 1024px) {
-			text-align: center
-		}		
+		@include mq(medium) {
+			text-align: center;
+		}
+		@include mq(large) {
+			text-align: left;
+		}
 	}
 	
 }
@@ -73,7 +83,7 @@
 [class$="--flex2"] {
 	flex-grow: 2;
 	padding-left: 5px;
-	@include mq(large) {
+	@include mq(x-large) {
 		padding-left: 25px;
 	}
 }

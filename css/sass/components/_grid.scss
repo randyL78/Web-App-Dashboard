@@ -27,11 +27,10 @@
 	min-height: 50px;
 	padding: 20px;
 	&:nth-child(2) {
-		@include mq(small) {
 		border-top: $border--theme;
-		}
 		@include mq(medium) {
 			border-left: $border--theme;
+			border-top: none;
 		}
 	}
 }

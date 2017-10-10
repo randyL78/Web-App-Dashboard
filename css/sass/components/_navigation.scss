@@ -22,7 +22,7 @@
 			width: 25px;
 			flex-direction: row;
 		}
-		@include mq(large) {
+		@include mq(x-large) {
 			width: 100px;
 		}	
 	}
@@ -157,7 +157,7 @@
 		@include mq(medium) {
 			height: inherit;
 		}
-		@include mq(large) {
+		@include mq(x-large) {
 			display: flex;
 		}
 	}

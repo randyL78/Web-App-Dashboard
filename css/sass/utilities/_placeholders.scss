@@ -118,18 +118,17 @@
 }
 
 %nav-item-link {
+	@include margin-left-right(auto);
   	font-weight: $font-weight--medium;
   	@extend %center-align;
   	font-size: em(20px);
   	display: block;
 	height:  54px;
-  	padding: em(10px) em(22px);
+  	padding: em(12px) em(22px) em(20px);
 	border-radius: $border--rounded-corners;
-
-  	@include mq(small) {
-    	@include pad-top-bottom(em(12px, 20px));
-		@include margin-left-right(auto);
-  	}
+	@include mq(medium) {
+		margin-left: em(5px);
+	}
 	@include mq(large) {
 		display: inline-block;
 	}
